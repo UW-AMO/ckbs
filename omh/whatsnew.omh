@@ -1,0 +1,492 @@
+# -------------------------------------------------------------------
+# ckbs: Constrained Kalman-Bucy Smoother Program: Copyright (C) 2006-11
+# Authors: Bradlely Bell:        bradbell at washington dot edu
+#          Gianluigi Pillonetto: giapi at dei dot unipd dot it
+#          Aleksandr Aravkin: saravkin at eos dot ubc dot ca
+# License: GNU General Public License Version 2
+# -------------------------------------------------------------------
+$begin whatsnew$$
+$rmark !$$
+$spell	
+	Aravkin
+	nl
+	vanderpol
+	yyyymmdd
+	yyyy mm dd
+	ckbs
+	Matlab
+	yy-mm-dd
+	rinv
+	itr
+	qinv
+	Han
+        posteriori
+        src
+       tridiagonal 
+       Woodbury
+       L1
+       Kuhn-Tucker
+       dataset
+       datasets
+       complementarity
+$$
+
+$section Changes and Additions to ckbs$$
+
+$head Introduction$$
+This section contains a list of changes to 
+ckbs (in reverse order by date). 
+Its purpose is to assist you in learning about 
+changes between versions.
+
+$head 11-08-01$$
+Merged following changes from $code aravkin$$ branch into the trunk:
+$pre 
+----------------------------------------------------------------$$
+
+$subhead 11-7-15$$
+$list number$$
+Removed block tridiagonal inverter
+from this branch, along with example 
+for it. This will go into a different branch 
+and different release. 
+$lnext
+Modernized 
+$cref ckbs_kuhn_tucker$$ to use
+block tridiagonal and block diagonal 
+multiplication
+$lnext
+Modified
+$cref ckbs_affine$$ to do a more
+robust interior
+point relaxation scheme, where 
+the maximum of the complementarity
+conditions is taken into account. 
+$lnext
+Made progress in fixing bug in
+$cref ckbs_nonlinear$$ that was 
+causing the unit test to fail
+for the constrained sine and box sine.  
+Committed algorithm now passes committed test. 
+$lnext 
+Added two more difficult datasets, 
+z2 and z3, to allow for better testing. 
+$lend
+
+
+$subhead 2-6-17$$
+Updated nonlinear test to read in dataset
+that makes the algorithm crash on Matlab. 
+Added dataset to the nonlinear folder. 
+
+
+
+$subhead 11-5-17$$
+Added routine $cref ckbs_L1_nonlinear$$ and 
+a test. The routine is the nonlinear robust
+L1 smoother, and the test checks 
+that the optimization problem has converged
+and makes a plot of the robust smoother 
+result compared to the iterated result
+from 
+$cref ckbs_affine$$ for the Van Der Pol
+oscillator. The problem is set 
+up to have a moderately high proportion of very 
+noisy outliers, and the user can easily
+tweak the parameters to experiment
+by using
+$cref L1_nonlinear_ok.m$$ as a template.  
+
+
+$subhead 11-5-10$$
+Added routine $cref ckbs_L1_affine$$ and 
+a test. The routine is the affine robust
+L1 smoother, and the test checks 
+that the optimization problem has converged
+and makes a plot of the robust smoother 
+result compared to the iterated result
+from 
+$cref ckbs_affine$$. The problem is set 
+up to have a high proportion of very 
+noisy outliers, and the user can easily
+tweak the parameters to experiment
+by using
+$cref L1_affine_ok.m$$ as a template.  
+
+$subhead 11-5-9$$
+$list number$$
+Rewrote $cref ckbs_blkdiag_mul$$ and 
+$cref ckbs_blkdiag_mul_t$$ to work on 
+matrices as well as vectors. 
+$lnext
+Rewrote test for 
+$cref ckbs_blktridiag_mul$$ so that
+it does not rely on any other routines. 
+$lnext
+Rewrote tests for 
+$cref ckbs_kuhn_tucker$$ and 
+$cref ckbs_newton_step$$ to use 
+lower level routines, eliminating
+redundant code and increasing 
+transparency of these tests.  
+$lnext
+Rewrote tests for 
+$cref ckbs_tridiag_solve$$ and 
+$cref ckbs_tridiag_solve_b$$ to
+use 
+$cref ckbs_blktridiag_mul$$ for transparency.   
+$lnext
+Added routines 
+$cref ckbs_newton_step_L1$$ and test to 
+compute the newton iteration for the L1 robust smoother.
+$lend
+
+
+
+$subhead 11-5-4$$
+Added
+$cref ckbs_kuhn_tucker_L1$$ and test.   
+This function computes the 
+Kuhn-Tucker residual for 
+the robust L1 smoothing problem. 
+
+
+$subhead 11-5-3$$
+$list number$$
+Added
+$cref ckbs_L2L1_obj$$ and test.   
+This function computes the 
+affine least squares (for process)
+and L1 robust (for residuals) norm,
+and is used by the robust L1 smoother. 
+$lnext
+Added
+$cref ckbs_process_grad$$ and test.   
+This routine computes the process
+portion of the gradient of the objective, and is used
+by the L1 smoother. 
+$lnext
+Added
+$cref ckbs_process_hes$$ and test. 
+This routine computes the process
+portion of the Hessian to the 
+objective, and is used by the L1 
+smoother. 
+$lend
+
+
+$subhead 11-5-2$$
+Rewrote
+$cref ckbs_newton_step$$.  
+New algorithm 
+uses one fewer tridiagonal solve,
+only inverts the augmented tridiagonal system, 
+avoid the Woodbury inversion lemma,
+and requires much less exposition. 
+
+
+$subhead 11-5-1$$
+Added 
+tridiagonal inverse routine 
+and test, subsequently deleted.  
+Given a packed tridiagonal matrix 
+$latex A$$,
+the routine computes the block diagonal
+of $latex A^{-1}$$. 
+The work to compute this scales 
+linearly with the number of time points. 
+This routine is useful for obtaining 
+the a posteriori variance estimate from
+a kalman smoothing fit. 
+
+
+$subhead 11-4-30$$
+Added 
+$cref ckbs_tridiag_solve_b$$ to
+$code src$$ directory and 
+$cref tridiag_solve_b_ok.m$$  
+to $code example$$ directory.
+This routine is an alternate version to  
+$cref ckbs_tridiag_solve$$ currently used
+by ckbs. 
+The new routine is used by the robust smoother, and in some 
+instances it may be more stable than the standard version. 
+
+
+$subhead 11-4-29$$
+Added 
+$cref ckbs_blktridiag_mul$$ to
+$code src$$ directory and 
+$cref blktridiag_mul_ok.m$$  
+to $code example$$ directory.
+This utility routine is used by the robust
+smoother, and also can be used to quickly
+convert a block tridiagonal matrix from compact
+to explicit form via multiplication with the identity. 
+
+$pre 
+----------------------------------------------------------------$$
+
+$head 10-11-15$$
+$list number$$
+Move 
+$cref vanderpol_ok.m$$, 
+$cref vanderpol_sim$$ and 
+$cref vanderpol_sim_ok.m$$
+from $code example$$ directory to $code example/nonlinear$$ directory.
+$lnext
+Create $cref persist_g.m$$ a general purpose transition utility
+for use with $cref ckbs_nonlinear$$.
+Change $cref get_started_ok.m$$ to use this utility.
+$lnext
+Change $cref get_started_ok.m$$ to use 
+$cref direct_h.m$$ and $cref box_f.m$$.
+In addition, make other improvements to $code get_started_ok.m$$.
+$lend
+
+$head 10-11-14$$
+$list number$$
+Make the unconstrained, box constrained, and nonlinear constrained cases
+options to the routine $cref sine_wave_ok.m$$.
+This replaces the old $code nl_measure_ok.m$$ and $code nonlinear_ok_sin.m$$
+examples.
+$lnext
+Create $cref sine_f.m$$ a general purpose constraint utility
+for use with $cref ckbs_nonlinear$$.
+Change $cref sine_wave_ok.m$$ to use this utility.
+$lend
+
+$head 10-11-13$$
+Create $cref distance_h.m$$ a general purpose distance measurement utility
+for use with $cref ckbs_nonlinear$$.
+Change examples to use this utility.
+
+$head 10-11-12$$
+Create $cref pos_vel_g.m$$ a general purpose position and velocity  utility
+for use with $cref ckbs_nonlinear$$.
+Change examples to use this utility.
+
+$head 10-11-10$$
+$list number$$
+Create $cref box_f.m$$ a general purpose box constraint utility 
+for use with $cref ckbs_nonlinear$$. 
+Change examples to use this utility.
+$lnext
+Document and make $cref no_f.m$$ a general purpose utility for 
+unconstrained problems.
+Change examples to use this utility.
+$lend
+
+
+$head 10-11-03$$
+Create a subdirectory called $code example/nonlinear$$ and move
+$code nonlinear_ok_simple.m$$ to $code nonlinear/get_started_ok.m$$, and
+$code nonlinear_ok_box.m$$ to $code nonlinear/nl_measure_ok.m$$.
+Improve the $cref get_started_ok.m$$ and $code nl_measure_ok.m$$,
+implementation and documentation.
+
+$head 10-10-28$$
+Add the $cref vanderpol_ok.m$$ example and test 
+of non-linear dynamical system.
+You can run this example as follows:
+$codep
+	cd example
+	octave
+	vanderpol_ok(true)
+$$
+You can replace $code octave$$ by $code matlab$$.
+The argument $code true$$ 
+instructs $code vanderpol_ok$$ to plot the results.
+
+$head 10-06-07$$
+Have $cref/ckbs_nonlinear/$$ report an error when an argument,
+or call back function return value,
+is not finite valued.
+
+$head 10-03-25$$
+$list number$$
+Moves the $code test$$ directory to $code example$$
+$lnext
+Created the file $code test/affine_line_search_ok.m$$
+which demonstrated a bug in $cref/ckbs_affine/$$.
+$lnext 
+Fixed the bug in $cref/ckbs_affine/$$.
+$lend
+
+$head 10-02-28$$
+Change $cref/download/ckbs/Download/$$ instructions
+to correspond $href%http://www.coin-or.org%COIN-OR%$$ distribution 
+instead of form 
+$href%http://www.seanet.com/~bradbell%Brad Bell's home page%$$. 
+
+$head 07-09-02$$
+The $cref/ckbs_nonlinear/$$ algorithm has been modified
+to conform with the global convergence theory of Burke and Han.
+This involved adding the exact penalty parameter $latex \alpha$$
+which is included in the trace and $italic info$$ return.
+
+$head 07-08-31$$
+In the case where the constraints were not active,
+the $code ckbs_affine$$ return value $cref/uOut/ckbs_affine/uOut/$$ 
+was a three dimensional array instead of a matrix.
+This has been fixed.
+
+$head 06-11-05$$
+Fix plotting the wrong variables in constrained case for
+$code nl_measure_ok.m$$.
+$pre
+
+$$
+Improve the documentation of the initial state estimate in
+$cref/g_fun/ckbs_nonlinear/g_fun/$$ and 
+$cref/qinv/ckbs_nonlinear/qinv/$$ for $code ckbs_nonlinear$$.
+$pre
+
+$$
+Improve the documentation of the initial state estimate in
+$cref/g_fun/ckbs_nonlinear/g_fun/$$ and 
+$cref/qinv/ckbs_nonlinear/qinv/$$ for $code ckbs_nonlinear$$.
+
+
+$head 06-11-03$$
+The order of the variables in the state vector 
+for $code nl_measure_ok.m$$ and
+for $code nonlinear_ok_sin.m$$ 
+was changed
+to group each component of velocity with the corresponding position
+(instead of grouping position with position and velocity with velocity).
+This made the variance matrix $latex Q_k$$ block diagonal
+(simpler).
+
+
+$head 06-10-24$$
+The fonts got misaligned in the $code ckbs_affine$$
+$cref/syntax/ckbs_affine/Syntax/$$ documentation.
+This has been fixed.
+
+$head 06-10-20$$
+The $cref/ckbs_nonlinear/$$ implementation was greatly simplified 
+using the fact that $cref/ckbs_affine/$$ no longer requires a feasible
+starting point.
+This removed the need for an augmented problem and hence the
+$cref/info/ckbs_nonlinear/info/$$ return value from $code ckbs_nonlinear$$
+no longer has a penalty parameter; i.e., it has one less value per row.
+$pre
+
+$$
+$cref/all_ok.m/$$ was extended so that if no argument is provided,
+only the quick tests are run.
+
+$head 06-10-19$$
+The $cref/ckbs_affine/$$ routine has been improved so that it no 
+longer requires a feasible input point
+so the input argument $italic xIn$$ has been removed.
+Since the sequence of iterates is no longer necessarily feasible,
+the $cref/info/ckbs_affine/info/$$ return value now has been changed
+so that it now includes a measure of feasibility.
+The input argument $cref/max_itr/ckbs_affine/max_itr/$$
+has been added to $code ckbs_affine$$.
+The $cref/affine_ok_box.m/$$ example has been changed to use the new
+meaning for the arguments and return values of $code ckbs_affine$$.
+$pre
+
+$$
+The $italic itr_out$$ return value has been removed from the
+$cref/ckbs_nonlinear/$$ syntax.
+It was the same as $syntax%size(%info%, 1)%$$.
+The following examples have been changed to remove the use of $italic itr_out$$
+in the calls to $code ckbs_nonlinear$$:
+$cref/get_started_ok.m/$$, 
+$code nl_measure_ok.m$$, 
+$code nonlinear_ok_sin.m$$.
+$pre
+
+$$
+The implementation of $cref/ckbs_nonlinear/$$ has been changed to use
+the new calling sequence to $cref/ckbs_affine/$$ (this is implementation
+detail and does not affect the user).
+
+$head 06-10-13$$
+The line search in $cref/ckbs_affine/$$ had a bug where the sign
+of the condition it was checking was reversed. This has been changed.
+In addition, the minimum line search step size in the sub-problem
+was added to the $cref/info/ckbs_nonlinear/info/$$ return value
+for $cref/ckbs_nonlinear/$$.
+$pre
+
+$$
+There was a syntax error in $cref/get_started_ok.m/$$ that 
+caused a problem in Matlab!, but not in octave.
+This has been fixed.
+
+
+$head 06-10-05$$
+$list number$$
+Matlab! does not combine character matrices with different numbers
+of columns. 
+A debugging message assignment in $code ckbs_nonlinear.m$$
+was removed to avoid this.
+$lnext
+Documentation for missing data values was added to
+$cref/rinv/ckbs_nonlinear/rinv/$$.
+$lnext
+Some minor Matlab compatibility problems 
+in the files 
+$code example/nonlinear/nl_measure_ok.m$$ and
+$code example/nonlinear_ok_sin.m$$ were fixed.
+$lnext
+The directory created when the
+$cref/download file/ckbs/Download/Release Tarballs/$$ was extracted
+was $code ckbs$$ instead of $syntax%ckbs-%yy%-%mm%-%dd%$$.
+This has been fixed.
+$lnext
+The $cref/utility/$$ section,
+and all its subsections,
+were missing from the documentation.
+$lnext
+The number of input arguments and output values for
+$cref/ckbs_nonlinear/$$ has been changes to allow for
+control of the number of iterations.
+$lnext
+Line search failure in $cref/ckbs_nonlinear/$$ was converted from
+an error to a warning.
+$lend
+
+$head 06-10-01$$
+$list number$$
+The $cref/test_path.m/$$ function was added so that
+it is easier to run a single test at the command line
+(you need to run this function first). 
+$lnext
+A tracing argument called $italic level$$ was added to
+$cref/ckbs_nonlinear/$$.
+This tracing was turned on in the
+$code nl_measure_ok.m$$ example.
+$lnext
+The nonlinear constraint example
+$code nonlinear_ok_sin.m$$ was added.
+It demonstrates significant improvement by
+the inclusion of the constraints.
+$lnext
+The $italic draw_plot$$ argument to the $code nl_measure_ok.m$$ example
+was documented.
+$lnext
+The $italic quick$$ argument was added to $cref/all_ok.m/$$.
+$lnext
+The files
+$code example/nonlinear_ok_sin.r$$ and 
+$code example/nonlinear/nl_measure_ok.r$$ were
+added to the distribution.
+(These are R source code files that are used to make plots from the
+corresponding example output files.)
+$lend
+
+
+$head 06-09-30$$
+The function $code ckbs$$ has been changed to
+$cref/ckbs_nonlinear/$$. This enables the 
+$cref/ckbs/$$ section to refer to the 
+documentation for the entire system.
+
+
+$end

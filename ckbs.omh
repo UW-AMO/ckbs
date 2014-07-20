@@ -1,0 +1,222 @@
+# -------------------------------------------------------------------
+# ckbs: Constrained and Robust Kalman-Bucy Smoother Program: Copyright (C) 2006-2011
+# Authors: Bradlely Bell:        bradbell at washington dot edu
+#          Gianluigi Pillonetto: giapi at dei dot unipd dot it
+#          Aleksandr Aravkin:    saravkin at eos dot ubc dot ca
+# License: GNU General Public License Version 2
+# -------------------------------------------------------------------
+$begin ckbs$$
+$dollar @$$
+$rmark !$$
+$spell
+	mkdir
+	Tarballs
+	yyyymmdd
+	yyyy mm dd
+	www http https
+	coin-or.org/svn/CoinBazaar
+	tarball
+	tgz
+	xvzf
+	cygwin
+	ckbs
+	Matlab
+	xml
+$$
+
+$latex \newcommand{\R}[1]{{\rm #1}}$$
+$latex \newcommand{\B}[1]{{\bf #1}}$$
+
+
+$navigate%
+	Across%Index%
+	Prev%Previous%
+	Next%Next%
+	Up%Up%
+	Down_up_3%_up_3%
+	Down_up_2%_up_2%
+	Down_up_1%_up_1%
+	Down_up_0%_up_0%
+	Current%Headings
+%$$
+
+$section ckbs-0.20130204.0: Constrained/Robust Kalman-Bucy Smoothers$$
+
+$table
+$cnext One web page per Section $pre $$ $cnext All as one web page
+$rnext
+Math in Latex  $pre $$
+$cnext  $href%ckbs.htm%$$               $cnext $href%_printable.htm%$$
+$rnext
+Math in MathML $pre $$
+$cnext $href%ckbs.xml%$$                $cnext $href%_priintable.xml%$$
+$tend
+
+$head Purpose$$
+The programs in this package compute a smoothed estimate of a time series 
+given process models for the state evolution, measurement
+models for the observations, variance estimates, 
+and the sequence of observations. 
+ 
+$subhead Affine Constrained Smoother$$
+The program $cref/constrained_affine/ckbs_affine/$$ performs 
+Kalman smoothing when the process and measurement models
+are affine. Affine inequality constraints may also be imposed
+on the state.  
+
+$subhead Nonlinear Constrained Smoother$$
+The program $cref/constrained_nonlinear/ckbs_nonlinear/$$ performs
+Kalman smoothing for general nonlinear process measurement. 
+Nonlinear inequality constraints may also be imposed on the state. 
+
+$subhead Affine L1 Robust Smoother$$
+The program $cref/robust_affine/ckbs_L1_affine/$$ performs 
+robust Kalman smoothing when the process and measurement 
+models are affine and the measurement sequence
+may contain outliers. 
+
+$subhead Nonlinear L1 Robust Smoother$$
+The program $cref/robust_nonlinear/ckbs_L1_nonlinear/$$ performs 
+robust Kalman smoothing for general nonlinear process
+and measurement models when the measurement sequence
+may contain outliers. 
+
+$subhead General Student's T smoother$$
+The program $cref/t_general/ckbs_t_general/$$ performs 
+robust Student's t Kalman smoothing for general nonlinear process
+and measurement models. The measurements may contain 
+very large outliers. Also, there may be sudden changes in trend data. 
+The user can specify which components of process and measurement
+residuals to model using Student's t. 
+
+$head MathML$$
+This documentation is in XHTML + MathML.
+If you have trouble viewing it in your browser see
+Viewing MathML on the web page
+$pre
+	$$
+	$href%
+		http://www.seanet.com/~bradbell/packages.htm
+	%$$
+
+$head System Requirements$$
+This constrained Kalman-Bucy smoother runs under both the 
+$href%
+	http://www.mathworks.com/%
+	Matlab!
+%$$
+and 
+$href%
+	http://www.gnu.org/software/octave/%
+	Octave
+%$$
+While it will work under MS windows, 
+these download instructions are for the Unix operating system.
+
+$head Download$$
+
+$subhead Release Tarballs$$
+You can download a tarball release of ckbs from the directory
+$pre
+	$$
+$href%http://www.coin-or.org/download/source/CoinBazaar%$$
+$pre
+$$
+Theses releases are named
+$codei%
+	ckbs-0.%yyyymmdd%.%r%.%ext%
+%$$
+where $icode yyyy$$ is the year,
+$icode mm$$ is the month,
+$icode dd$$ is the day,
+$icode r$$ is the release number,
+and $icode ext$$ is $code tgz$$ or $code zip$$.
+$pre
+
+$$
+If $icode ext$$ is $code tgz$$ the command
+$codei%
+	tar -xvzf ckbs-0.%yyyymmdd%.%r%.tgz
+%$$
+will create the $codei%ckbs-0.%yyyymmdd%.%r%$$ directory.
+$pre
+
+$$
+If $icode ext$$ is $code zip$$ the command
+$codei%
+	unzip ckbs-0.%yyyymmdd%.%r%.zip
+%$$
+will create the $codei%ckbs-0.%yyyymmdd%.%r%$$ directory.
+
+$subhead Using Subversion$$
+If you are going to use subversion to download a version of $code ckbs$$,
+start with the following commands:
+$codei%
+	mkdir ckbs
+	cd ckbs
+	web="https://projects.coin-or.org/svn/CoinBazaar/projects/ckbs"
+%$$
+For each release listed in the
+$href%http://www.coin-or.org/download/source/CoinBazaar%download directory%$$
+you can use subversion to download the release with the commands
+$codei%
+	svn checkout @web/releases/0.%yyyymmdd%.%r%
+%$$
+This will create the $codei%ckbs/0.%yyyymmdd%.%r%$$ directory.
+You can also download the most recent version of ckbs (called the trunk)
+using the commands
+$codei%
+	svn checkout @web/trunk
+%$$
+This will create the $codei%ckbs/trunk%$$ directory.
+
+$head Test Install$$
+Change into the directory
+$codei%ckbs/0.%yyyymmdd%.%r%/example%$$ 
+or
+$codei%ckbs/trunk/example%$$ 
+and use Matlab! or Octave to run the program $code all_ok.m$$.
+It will print the test results for all the components of $code ckbs$$.
+You can run some more tests by changing into the directory
+$codei%ckbs/0.%yyyymmdd%.%r%/test%$$ 
+or
+$codei%ckbs/trunk/test%$$ 
+and running the program $code all_ok.m$$
+which will have a similar output.
+
+
+$head Documentation$$
+If you download a release, a copy of the documentation for the release
+can be found be viewed in your browser by opening the file
+$codei%
+	ckbs/0.%yyyymmdd%.%r%/doc/ckbs.xml
+%$$
+If you download the latest version (the trunk),
+a copy of the documentation for this version can 
+be built by executing the commands
+$codep
+	./build_doc.sh
+$$
+in the $codei%ckbs/trunk%$$ directory.
+You can then view the documentation in your browser by opening the file
+$codei%
+	ckbs/trunk/doc/ckbs.xml
+%$$
+
+$childtable%
+	omh/license.omh%
+	src/ckbs_t_general.m%
+	src/ckbs_nonlinear.m%
+	src/ckbs_L1_nonlinear.m%
+	src/ckbs_affine.m%
+	src/ckbs_affine_singular.m%
+	src/ckbs_L1_affine.m%
+	omh/utility.omh%
+	example/all_ok.m%
+	omh/whatsnew.omh%
+	omh/wishlist.omh%
+	omh/bib.omh
+%$$
+
+
+$end

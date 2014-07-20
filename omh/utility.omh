@@ -1,0 +1,44 @@
+# -------------------------------------------------------------------
+# ckbs: Constrained Kalman-Bucy Smoother Program: Copyright (C) 2006-2011
+# Authors: Bradlely Bell:        bradbell at washington dot edu
+#          Gianluigi Pillonetto: giapi at dei dot unipd dot it
+#          Aleksandr Aravkin:  saravkin at eos dot ubc dot ca
+# License: GNU General Public License Version 2
+# -------------------------------------------------------------------
+$begin utility$$
+$spell
+	ckbs
+$$
+
+$section ckbs Utility Functions$$
+
+$childtable%
+	src/ckbs_t_obj.m%
+	src/ckbs_t_grad.m%
+	src/ckbs_t_hess.m%
+	src/ckbs_diag_solve.m%
+	src/ckbs_bidiag_solve.m%
+	src/ckbs_bidiag_solve_t.m%
+	src/ckbs_blkbidiag_symm_mul.m%
+	src/ckbs_blkdiag_mul.m%
+	src/ckbs_blkdiag_mul_t.m%
+	src/ckbs_blkbidiag_mul_t.m%
+	src/ckbs_blkbidiag_mul.m%
+        src/ckbs_blktridiag_mul.m%
+	src/ckbs_sumsq_obj.m%
+	src/ckbs_L2L1_obj.m%
+	src/ckbs_sumsq_grad.m%
+	src/ckbs_process_grad.m%
+	src/ckbs_sumsq_hes.m%
+	src/ckbs_process_hes.m%
+	src/ckbs_tridiag_solve.m%
+	src/ckbs_tridiag_solve_b.m%
+	src/ckbs_tridiag_solve_pcg.m%
+	src/ckbs_tridiag_inv.m%
+	src/ckbs_newton_step.m%
+	src/ckbs_newton_step_L1.m%
+	src/ckbs_kuhn_tucker.m%
+	src/ckbs_kuhn_tucker_L1.m
+%$$
+
+$end

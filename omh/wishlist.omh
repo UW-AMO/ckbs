@@ -1,0 +1,35 @@
+$begin wishlist$$
+$spell 
+       ckbs
+       tridiagonal
+       mex
+       matlab
+       parallelized
+       subproblem
+       Kuhn
+       Tucker
+$$ 
+
+
+
+$section List of Future Improvements to ckbs$$
+
+$head Documentation$$
+
+$subhead H$$
+Fix double use of H as linear term in the measurement model and as the quadratic term in the affine subproblem. 
+
+
+$head Speed$$
+
+$subhead Block tridiagonal solver$$
+Implement $cref ckbs_tridiag_solve_b$$ as a mex file that runs under both matlab and octave. 
+(Possibly include a parallelized version). 
+
+$head Tests$$ 
+
+$subhead Derivatives$$
+Use the complex step method instead of simple differences to check derivatives. 
+This can be used to check Kuhn-Tucker conditions using complex step on the Lagrangian. 
+
+$end

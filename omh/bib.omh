@@ -1,0 +1,17 @@
+$begin bib$$
+
+$spell
+
+Aravkin
+Pillonetto
+subproblem
+
+$$
+
+$section Bibliography$$
+
+$head Aravkin2009$$
+A.Aravkin, B. Bell, J. Burke, G. Pillonetto, 
+An $latex \ell_1$$ Laplace Robust Kalman Smoother, to appear in IEEE TAC in November, 2011.
+
+$end
