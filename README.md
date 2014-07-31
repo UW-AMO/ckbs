@@ -5,7 +5,7 @@ In 2010, Aleksandr Aravkin and James Burke contributed software for robust Kalma
 Full documentation for majority of ckbs code is available through COIN-OR:
 http://www.coin-or.org/CoinBazaar/ckbs/ckbs.xml
 
-Since 2014, ckbs is also available through github. 
+Since 07/2014, ckbs is also available through github. 
 
 For MLSP experiments, please see 
 
