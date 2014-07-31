@@ -1,4 +1,5 @@
-% augmented affine test
+% gyro affine test. 
+% creates plots (when draw_plot set to 1) for the MLSP 2014 submission. 
 function [ok] = gyro_affine_ok(draw_plot)
 
 
