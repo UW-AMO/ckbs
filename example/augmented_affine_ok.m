@@ -1,5 +1,7 @@
 % augmented affine test
 % creates plots (when draw_plot set to 1) for the MLSP 2014 submission. 
+% Contributed by Karthikeyan Natesan Ramamurthy
+
 function [ok] = augmented_affine_ok(draw_plot)
     % --------------------------------------------------------
     % You can change these parameters

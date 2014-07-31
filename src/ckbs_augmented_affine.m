@@ -4,6 +4,7 @@
 
 % only new input is P, the measurement matrix for non-time varying
 % variables. P = 1 \kron Pone.
+% written by Aleksandr Aravkin and Karthikeyan Natesan Ramamurthy
 % ----------------------------------------------------------------------------
 function [xOut, yOut, yVar] = ckbs_augmented_affine(max_itr, epsilon, ...
     z, b, g, h, db, dg, dh, qinv, rinv, Pone)

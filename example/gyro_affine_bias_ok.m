@@ -1,5 +1,6 @@
 % gyro affine test with bias estimation
 % creates figures for MLSP submission 2014 when draw_plot set to 1
+% Contributed by Karthikeyan Natesan Ramamurthy
 
 function [ok] = gyro_affine_bias_ok(draw_plot)
 close all; clc;

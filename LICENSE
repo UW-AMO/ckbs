@@ -1,10 +1,12 @@
 ---------------------------------------------------------
 ckbs: Constrained Kalman-Bucy Smoother Program:
-                Copyright (C) 2006
-      Bradlely Bell and Gianluigi Pillonetto
+                Copyright (C) 2006-2014
+      Bradley Bell, Gianluigi Pillonetto, Aleksandr Aravkin, James Burke 
 
       Bradlely Bell: bradbell at washington dot edu
       Gianluigi Pillonetto: giapi at dei dot unipd dot it
+      Aleksandr Aravkin: saravkin at us dot ibm dot com
+      James Bure: jvburke at uw dot edu
 
       ckbs is distributed under the terms of the
            GNU General Public License Version 2
